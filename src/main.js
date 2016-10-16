@@ -95,6 +95,34 @@ function blockTriggers(images) {
 	}
 }
 
+function alertBlocker(tags) {
+	console.log('which tag would you like to block: ' + tags);
+	// TODO : prompt user;
+	blocks = [];
+	for (var i = 0; i < block.length; i++) {
+		chrome.extension.sendMessage({text:"AddToTriggerList", tag:blocks[i]},function(response){});
+	}
+}
+
+function updateTriggers(imageUrl) {
+	console.log('updating users');
+	app.models.predict(Clarifai.GENERAL_MODEL, imageUrl).then(
+		function(response) {
+			console.log(response);
+			if (response.statusText == 'OK') {
+				var output = response.data.outputs[0];
+				if (output.data != null) {
+					var tags = output.data.concepts.map(function(o) { return o.name });
+					alertBlocker(tags);
+				}
+			}
+		},
+		function(err) {
+			console.error('error lol: ' + err);
+		}
+	);	
+}
+
 function clarifaiTrigger(images) {
 	var urls = images.map(function(o) { return o.src });
 
@@ -116,10 +144,10 @@ function clarifaiTrigger(images) {
 					images[i].classList.add("inspected");
 				}
 			} else {
-				for (var i = 0; i < images.length; i++) {
-					images[i].classList.add("inspected");
-					blockTrigger(images[i]);
-				}
+				//for (var i = 0; i < images.length; i++) {
+				//	images[i].classList.add("inspected");
+				//	blockTrigger(images[i]);
+				//}
 			}
 			
 		},
@@ -146,8 +174,8 @@ document.addEventListener("mousedown", function(event){
 chrome.runtime.onMessage.addListener(
 function(request, sender, sendResponse) {
 	if (request == "blockTrigger") {
-		console.log('got blocks');
 		blockTrigger(rightClicked);
+		updateTriggers(rightClicked.src);
 	}
 });
 
@@ -180,4 +208,5 @@ chrome.extension.sendMessage({text:"EnabledCheck"},function(response){
 		for (var i = 0; i < images.length; i++) {
 			images[i].setAttribute("style", "-webkit-filter:blur(0px)");
 		}
-	}});
+	}
+});
