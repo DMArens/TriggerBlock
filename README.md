@@ -12,6 +12,12 @@ When it comes to our users, safety is the **top** priority. We will never automa
 
 Simply set the trigger words in TriggerBlock's options, and refresh the page. It will automatically go to work for you, protecting you in your online environment.
 
+### Examples
+WARNING: Potentially upsetting content
+
+* [Spiders](https://en.wikipedia.org/wiki/Spider)
+* [Jesters](https://en.wikipedia.org/wiki/Jester)
+
 Options             |  In-Action
 :-------------------------:|:-------------------------:
 ![TriggerBlock Options](/img/triggerblock_options.png) |  ![TriggerBlock In-Action](/img/triggerblock_working.png)
