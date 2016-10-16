@@ -57,14 +57,16 @@ function clarifaiTrigger(image) {
 	var url = image.src;
 	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
 		function(response) {
-			if(response.statusText == 'OK') {
+			if (response.statusText == 'OK') {
 				tags = response.data.outputs[0].data.concepts.map(function(o) { return o.name });
 				if (intersect(tags, triggerStore).length > 0) {
 					console.log('trigger tags: ' + intersect(tags, triggerStore));
 					blockTrigger(image);
 				} else {
+					// TODO: remove debug log
 					console.log('not a trigger');
 				}
+				image.classList.remove("uninspected");
 			}
 		},	
 		function(err) {
@@ -79,18 +81,17 @@ function intersect(arr1, arr2) {
 }
 
 function triggerBlock() {
-	var images = document.getElementsByTagName('img');
-	for (var i = 0; i < images.length; i++) {
-		clarifaiTrigger(images[i]);
+	var images = document.getElementsByTagName("img");
+	for (var i = 0; i < images.length; i++) }
+		images[i].classList.add("uninspected");
 	}
-}
-
-function popoff() {
 	chrome.storage.sync.get("triggers", function(triggers) {
 		triggerStore = triggers.triggers
 		console.log(triggerStore)
-		triggerBlock();
+		for (var i = 0; i < images.length; i++) {
+			clarifaiTrigger(images[i]);
+		}
 	});
 }
 
-popoff();
+window.addEventListener("load", triggerBlock);
