@@ -84,6 +84,39 @@ function blockTriggers(images) {
 	}
 }
 
+function alertBlocker(tags) {
+	console.log('which tag would you like to block: ' + tags);
+	// TODO : prompt user;
+	blocks = [];
+	for (var i = 0; i < block.length; i++) {
+		chrome.extension.sendMessage({text:"AddToTriggerList", tag:blocks[i]},function(response){});
+	}
+}
+
+function getClarifaiTags(image) {
+	var url = image.src;
+	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
+		function(response) {
+			console.log(response);
+			if (response.statusText == 'OK') {
+				var output = response.data.outputs[0];
+				if (output.data != null) {
+					var tags = output.data.concepts.map(function(o) { return o.name });
+					alertBlocker(tags);
+				}
+			}
+		},
+		function(err) {
+			console.error('error lol: ' + err);
+			for (var i = 0; i < images.length; i++) {
+				images[i].classList.remove("uninspected");
+					images[i].classList.add("inspected");
+				blockTrigger(images[i]);
+			}
+		}
+	);	
+}
+
 function clarifaiTrigger(images) {
 	var urls = images.map(function(o) { return o.src });
 
