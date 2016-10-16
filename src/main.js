@@ -57,13 +57,14 @@ function clarifaiTrigger(image) {
 	var url = image.src;
 	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
 		function(response) {
-			console.log('doing clarifai: ' + response.request.response);
-			if (response.status_code == 'OK') {
-				if (intersect(response.classes, triggerStore).length > 0) {
+			if (response.statusText == 'OK') {
+				tags = response.data.outputs[0].data.concepts.map(function(o) { return o.name });
+				if (intersect(tags, triggerStore).length > 0) {
+					console.log('trigger tags: ' + intersect(tags, triggerStore));
 					blockTrigger(image);
 				} else {
 					// TODO: remove debug log
-					console.log('no trigger');
+					console.log('not a trigger');
 				}
 				image.classList.remove("uninspected");
 			}
