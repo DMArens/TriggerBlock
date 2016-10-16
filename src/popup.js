@@ -21,6 +21,7 @@ function checkStatus() {
 }
 
 $("#toggle").on("click", function(e) {
+	console.log("clicked")
     toggle()
 })
 

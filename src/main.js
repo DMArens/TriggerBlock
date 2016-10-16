@@ -9,6 +9,15 @@ var app = new Clarifai.App(
 
 var triggerStore = null
 
+$(document).on("click", "a", function() {
+	for(var i = 0; i < this.children.length; i++) {
+		if(this.children[i].className == 'trigger-holder') {
+			return false;
+		}
+	}
+	return true;
+});
+
 /**
  * Blocks a given element on the DOM.
  *
@@ -23,22 +32,35 @@ function blockTrigger(trigger) {
 		var hoverText = document.createElement("p");
 		hoverText.textContent = "View Trigger";
 		hoverText.classList.add("trigger-warning");
-		hoverText.addEventListener("click", function() {
-			// get the trigger container
-			var ancestor = this.parentNode.parentNode;
-			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
-		})
 
+		var hoverImg = document.createElement("img");
+		hoverImg.src = "chrome-extension://iodgnbahcdlhngilglhlkkiokmecbnhh/img/TriggerBlock.png";
+		hoverImg.classList.add("logo");
+
+		trigger.setAttribute("style","-webkit-filter:blur(30px)");
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
 		var width = "" + trigger.width + "px";
 		var height = "" + trigger.height + "px";
 		overlay.style.width = width;
 		overlay.style.height = height;
-		overlay.style.backgroundColor = "#FF0000"; // TODO: use config variable
+		overlay.style.backgroundColor = "#D3D3D3"; // TODO: use config variable
 		overlay.classList.add("trigger-overlay");
 		// Add trigger warning to overlay
 		overlay.appendChild(hoverText);
+		overlay.appendChild(hoverImg);
+
+		$(document).on("click", ".trigger-overlay", function() {
+			// get the trigger container
+			var ancestor = this.parentNode;
+			for(var i = 0; i < ancestor.childNodes.length; i++) {
+				if(ancestor.childNodes[i].tagName == "IMG") {
+					ancestor.childNodes[i].setAttribute("style", "-webkit-filter:blur(0px)");
+				}
+			}
+			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
+			return false;
+		});
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");

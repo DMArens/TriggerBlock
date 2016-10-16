@@ -4,7 +4,7 @@
     "name": "Trigger Block",
     "description": "Block those pesky trigger images",
     "version": "0.1.0",
-
+	
     "browser_action": {
         "default_icon": "/img/TriggerBlock.png",
         "default_title": "Trigger Block",
@@ -32,5 +32,6 @@
             "js": ["/src/lib/clarifai-2.0.9.js", "/src/lib/jquery-3.1.1.min.js", "/src/main.js"],
             "css": ["/styles/overlay.css"]
         }
-    ]
+    ],
+	"web_accessible_resources": ["img/TriggerBlock.png"]
 }

@@ -2,15 +2,15 @@
 	opacity: 0;
 }
 
+.logo {
+	width: 50%;
+}
+
 .trigger-warning {
-	opacity: 0;
-	color: #FF0000;
+	color: black;
 	font-weight: bold;
 	text-align: center;
 }
-	.trigger-warning:hover {
-		opacity: 1;
-	}
 
 .trigger-holder {
 	position: relative;
@@ -20,4 +20,10 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	opacity: 0;
 }
+
+.trigger-overlay:hover {
+	opacity: 1;
+}
+
