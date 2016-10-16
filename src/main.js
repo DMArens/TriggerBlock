@@ -65,6 +65,8 @@ function blockTrigger(trigger) {
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");
+		replacement.style.width = width;
+		replacement.style.height = height;
 		replacement.classList.add("trigger-holder");
 
 		// Wrap the trigger with a trigger warning
@@ -129,7 +131,7 @@ function clarifaiTrigger(images) {
 					if (outputs[i].data != null) {
 						var tags = outputs[i].data.concepts.map(function(o) { return o.name });
 						if (intersect(tags, triggerStore).length > 0) {
-		                    blockTrigger(images[i]);
+							blockTrigger(images[i]);
 						}
 					} else {
 						console.log('bad image');

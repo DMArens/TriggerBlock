@@ -7,8 +7,8 @@ function blockHandler(info, tab) {
 }
 
 chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
-  if(message.text == "EnabledCheck")
-    sendResponse({isEnabled:isEnabled});
+	if(message.text == "EnabledCheck")
+		sendResponse({isEnabled:isEnabled});
 });
 
 chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
@@ -18,7 +18,7 @@ chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
 });
 
 chrome.contextMenus.create({
-    "title": "Block Trigger",
-    "contexts": ["image"],
-    "onclick" : blockHandler
-  });
+	"title": "Block Trigger",
+	"contexts": ["image"],
+	"onclick" : blockHandler
+});
