@@ -1,16 +1,16 @@
 img {
-	visibility: hidden;
+	-webkit-filter: blur(30px);
 }
 
 .inspected {
-	visibility: visible;	
+	-webkit-filter: blur(0px);
 }
 
 .uninspected {
-	opacity: 0;
 }
 
 .logo {
+	-webkit-filter: blur(0px);
 	visibility: visible;
 	width: 50%;
 }
