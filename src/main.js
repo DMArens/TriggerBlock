@@ -95,9 +95,9 @@ function alertBlocker(tags) {
 	}
 }
 
-function getClarifaiTags(image) {
-	var url = image.src;
-	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
+function updateTriggers(imageUrl) {
+	console.log('updating users');
+	app.models.predict(Clarifai.GENERAL_MODEL, imageUrl).then(
 		function(response) {
 			console.log(response);
 			if (response.statusText == 'OK') {
@@ -110,11 +110,6 @@ function getClarifaiTags(image) {
 		},
 		function(err) {
 			console.error('error lol: ' + err);
-			for (var i = 0; i < images.length; i++) {
-				images[i].classList.remove("uninspected");
-					images[i].classList.add("inspected");
-				blockTrigger(images[i]);
-			}
 		}
 	);	
 }
@@ -172,8 +167,8 @@ document.addEventListener("mousedown", function(event){
 chrome.runtime.onMessage.addListener(
 function(request, sender, sendResponse) {
 	if (request == "blockTrigger") {
-		console.log('got blocks');
 		blockTrigger(rightClicked);
+		updateTriggers(rightClicked.src);
 	}
 });
 
