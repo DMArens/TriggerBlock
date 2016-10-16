@@ -46,6 +46,12 @@ function updateTriggers(newTriggers) {
 
 $(document).ready(function() {
     document.getElementById('save-trigger').addEventListener('click', addTrigger);
+    $('input').keypress(function (e) {
+        if (e.which == 13) {
+            addTrigger()
+        return false;    //<---- Add this line
+      }
+    }); 
 
     chrome.storage.sync.get("triggers", function(data){
         if (Object.keys(data).length === 0) {
