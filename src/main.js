@@ -142,10 +142,11 @@ function clarifaiTrigger(images) {
 					images[i].classList.add("inspected");
 				}
 			} else {
-				//for (var i = 0; i < images.length; i++) {
+				for (var i = 0; i < images.length; i++) {
+					images[i].setAttribute("style", "-webkit-filter:blur(0px)");
 				//	images[i].classList.add("inspected");
 				//	blockTrigger(images[i]);
-				//}
+				}
 			}
 			
 		},
