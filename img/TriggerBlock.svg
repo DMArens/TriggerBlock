@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.2"
+   width="290"
+   height="283.59747"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-252.30443,-403.26286)"
+     id="layer1">
+    <path
+       d="m 319.24193,414.12301 c -0.61547,25.49446 -39.23516,55.89476 -64.9375,55.25 0.59786,46.55294 -1.78061,78.84467 14.44706,123.2992 12.82129,35.71177 44.68705,60.42888 78.54987,74.9723 16.2451,6.64743 32.71029,14.4293 50.00632,17.21583 17.29302,-2.64918 33.75688,-10.54322 49.99982,-17.15333 33.86282,-14.54342 65.72858,-39.26052 78.54987,-74.9723 16.22767,-44.45453 13.8492,-76.74626 14.44706,-123.2992 -25.70234,0.64476 -64.32203,-29.75554 -64.9375,-55.25 -61.89004,-11.84467 -94.23425,-11.92801 -156.125,-0.0625 z"
+       id="path8744"
+       style="fill:#8282ff;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-opacity:0.83628319;stroke-dasharray:none" />
+    <flowRoot
+       id="flowRoot10708"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion10710"><rect
+           width="246.82204"
+           height="130.74896"
+           x="216.13605"
+           y="546.04346"
+           id="rect10712" /></flowRegion><flowPara
+         id="flowPara10714"></flowPara></flowRoot>    <text
+       x="305.84833"
+       y="593.54987"
+       id="text10716"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:-15.57999802px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="305.84833"
+         y="593.54987"
+         id="tspan10718"
+         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;letter-spacing:-15.57999802px;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">TB</tspan></text>
+    <text
+       x="314.19778"
+       y="172.2166"
+       transform="translate(252.28125,395.24992)"
+       id="text10720"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="314.19778"
+         y="172.2166"
+         id="tspan10722" /></text>
+  </g>
+</svg>
