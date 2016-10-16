@@ -1,6 +1,7 @@
 'use strict'
 
 var IMAGES_BUFSIZE = 128;;
+var rightClicked = null;
 
 var app = new Clarifai.App(
 	'bi23kkb3SfD800k620sudJwg4mVzypk1kXyYHI_J',
@@ -37,7 +38,7 @@ function blockTrigger(trigger) {
 		hoverImg.src = chrome.extension.getURL("/img/TriggerBlock.png");
 		hoverImg.classList.add("logo");
 
-		trigger.setAttribute("style","-webkit-filter:blur(30px)");
+		trigger.setAttribute("style", "-webkit-filter: blur(30px)");
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
 		var width = "" + trigger.width + "px";
@@ -129,6 +130,19 @@ function clarifaiTrigger(images) {
 function intersect(arr1, arr2) {
 	return $(arr1).not($(arr1).not(arr2));
 }
+
+document.addEventListener("mousedown", function(event){
+	if(event.button == 2) { 
+		rightClicked = event.target;
+	}}, true);
+
+chrome.runtime.onMessage.addListener(
+function(request, sender, sendResponse) {
+	if (request == "blockTrigger") {
+		console.log('got blocks');
+		blockTrigger(rightClicked);
+	}
+});
 
 function triggerBlock() {
 	var images = document.getElementsByTagName("img");
