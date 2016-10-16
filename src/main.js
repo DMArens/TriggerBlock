@@ -64,6 +64,8 @@ function blockTrigger(trigger) {
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");
+		replacement.style.width = width;
+		replacement.style.height = height;
 		replacement.classList.add("trigger-holder");
 
 		// Wrap the trigger with a trigger warning

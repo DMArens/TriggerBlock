@@ -23,6 +23,7 @@ img {
 
 .trigger-holder {
 	position: relative;
+	overflow: hidden;
 }
 
 .trigger-overlay {
