@@ -29,13 +29,14 @@ function listTriggers() {
 
 function appendList(item) {
 	var list = $("#current-triggers")
-	var button = $("<button id='" + item +"-button' class='remove'>X</button>") 
-	list.append("<li>" + item + button[0].outerHTML + "</li>")
-	$("#" + item + "-button").on("click", function(e) {
+	var button = $("<button class='remove'>X</button>") 
+	$(button).on("click", function(e) {
 		triggerStore.splice(triggerStore.indexOf(item), 1)
 		updateTriggers(triggerStore)
 		$(e.target)[0].parentElement.remove()
 	})
+	var combined = $("<li>" + item + "</li>").append($(button)) 
+        combined.appendTo(list)
 }
 
 function updateTriggers(newTriggers) {
