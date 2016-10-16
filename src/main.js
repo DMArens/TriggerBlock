@@ -33,12 +33,7 @@ function blockTrigger(trigger) {
 		var height = "" + trigger.height + "px";
 		overlay.style.width = width;
 		overlay.style.height = height;
-		/* TODO: use config variable
-		chrome.storage.sync.get("blocker", function(config) {
-			var blockerColor = config.color;
-		});
-		*/
-		overlay.style.backgroundColor = blockerColor || "#FF0000";
+		overlay.style.backgroundColor = "#FF0000"; // TODO: use config variable
 		overlay.classList.add("trigger-overlay");
 		// Add trigger warning to overlay
 		overlay.appendChild(hoverText);
