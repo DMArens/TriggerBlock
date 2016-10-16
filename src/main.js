@@ -5,6 +5,13 @@ var app = new Clarifai.App(
 	'{clientSecret}'
 );
 
+function getTriggers() {
+	chrome.storage.sync.get("triggers", function(triggers) {
+		var trigs = triggers;
+	});
+	return trigs;
+}
+
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
 		// Process the trigger to create an overlay
@@ -13,14 +20,22 @@ function blockTrigger(trigger) {
 		var height = "" + trigger.height + "px";
 		overlay.style.width = width;
 		overlay.style.height = height;
-		overlay.style.backgroundColor = "#FF0000"; // TODO: Use config instead
+		/* TODO: use config variable
+		chrome.storage.sync.get("blocker", function(config) {
+			var blockerColor = config.color;
+		});
+		*/
+		overlay.style.backgroundColor = blockerColor || "#FF0000";
 		overlay.classList.add("trigger-overlay");
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");
 		replacement.classList.add("trigger-holder");
 
-		// TODO: Remove the trigger and replace it
+		// Remove the trigger and replace it
+		replacement.appendChild(trigger);
+		replacement.appendChild(overlay);
+		trigger.parentNode.replaceChild(replacement, trigger);
 	}
 }
 
