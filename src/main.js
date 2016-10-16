@@ -28,6 +28,11 @@ function blockTrigger(trigger) {
 		var hoverText = document.createElement("p");
 		hoverText.textContent = "View Trigger";
 		hoverText.classList.add("trigger-warning");
+		hoverText.addEventListener("click", function() {
+			// get the trigger container
+			var ancestor = this.parentNode.parentNode;
+			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
+		}
 
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
