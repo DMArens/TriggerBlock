@@ -1,3 +1,13 @@
+.trigger-warning {
+	opacity: 0;
+	color: #FF0000;
+	font-weight: bold;
+	text-align: center;
+}
+	.trigger-warning:hover {
+		opacity: 1;
+	}
+
 .trigger-holder {
 	position: relative;
 }

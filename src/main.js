@@ -15,6 +15,11 @@ function getTriggers() {
 
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
+		// Generate a trigger warning
+		var hoverText = document.createElement("p");
+		hoverText.textContent = "View Trigger";
+		hoverText.classList.add("trigger-warning");
+
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
 		var width = "" + trigger.width + "px";
@@ -28,6 +33,8 @@ function blockTrigger(trigger) {
 		*/
 		overlay.style.backgroundColor = blockerColor || "#FF0000";
 		overlay.classList.add("trigger-overlay");
+		// Add trigger warning to overlay
+		overlay.appendChild(hoverText);
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");
