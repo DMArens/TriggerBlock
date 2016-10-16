@@ -44,7 +44,7 @@ function blockTrigger(trigger) {
 		if (trigger.width > trigger.height + 6) {
 			hoverImg.style.height = height;
 		} else {
-			hoverImg.style.height = height;
+			hoverImg.style.width = width;
 		}
 		hoverImg.classList.add("logo");
 
