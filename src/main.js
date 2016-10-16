@@ -95,7 +95,7 @@ function intersect(arr1, arr2) {
 
 function triggerBlock() {
 	var images = document.getElementsByTagName("img");
-	for (var i = 0; i < images.length; i++) }
+	for (var i = 0; i < images.length; i++) {
 		images[i].classList.add("uninspected");
 	}
 
