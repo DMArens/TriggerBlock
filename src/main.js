@@ -78,6 +78,8 @@ function triggerBlock() {
 	for (var i = 0; i < images.length; i++) {
 		if (clarifaiTrigger(images[i])) {
 			blockTrigger(images[i])
+		} else {
+			images[i].classList.remove("uninspected");
 		}
 	}
 }
@@ -88,6 +90,10 @@ function popoff() {
 		console.log(triggerStore)
 		triggerBlock();
 	});
+	var images = document.getElementsByTagName("img");
+	for (var i = 0; i < images.length; i++) }
+		images[i].classList.add("uninspected");
+	}
 }
 
 window.addEventListener("load", popoff);

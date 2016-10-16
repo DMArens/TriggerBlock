@@ -1,3 +1,7 @@
+.uninspected {
+	opacity: 0;
+}
+
 .trigger-warning {
 	opacity: 0;
 	color: #FF0000;
