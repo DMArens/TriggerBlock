@@ -28,7 +28,7 @@ function listTriggers() {
 
 function appendList(item) {
     var list = $("#current-triggers")
-    var button = $("<button id='" + item +"-button'>blah</button>") 
+    var button = $("<button id='" + item +"-button' class='remove'>X</button>") 
     list.append("<li>" + item + button[0].outerHTML + "</li>")
     $("#" + item + "-button").on("click", function(e) {
         triggerStore.splice(triggerStore.indexOf(item), 1)

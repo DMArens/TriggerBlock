@@ -57,16 +57,22 @@ function clarifaiTrigger(image) {
 	var url = image.src;
 	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
 		function(response) {
-			if(response.status_code == 'OK') {
-				return intersect(response.classes, triggerStore).length > 0;
+			console.log('doing clarifai: ' + response.request.response);
+			if (response.status_code == 'OK') {
+				if (intersect(response.classes, triggerStore).length > 0) {
+					blockTrigger(image);
+				} else {
+					image.classList.remove("uninspected");
+					// TODO: remove debug log
+					console.log('no trigger');
+				}
 			}
 		},	
 		function(err) {
-			console.error(err);
-			return true;
+			console.error('error lol: ' + err);
+			blockTrigger(image);
 		}
 	);	
-	return true;
 }
 
 function intersect(arr1, arr2) {
@@ -76,11 +82,7 @@ function intersect(arr1, arr2) {
 function triggerBlock() {
 	var images = document.getElementsByTagName('img');
 	for (var i = 0; i < images.length; i++) {
-		if (clarifaiTrigger(images[i])) {
-			blockTrigger(images[i])
-		} else {
-			images[i].classList.remove("uninspected");
-		}
+		clarifaiTrigger(images[i]);
 	}
 }
 
