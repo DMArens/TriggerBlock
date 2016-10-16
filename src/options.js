@@ -1,12 +1,12 @@
 var triggerStore = null
 // add a trigger word to the list
 function addTrigger() {
-    var newTrigger = document.getElementById("trigger-input").value 
+    var newTrigger = document.getElementById("trigger-input").value.replace(/^\s+|\s+$/g, '') 
     chrome.storage.sync.get(
         "triggers"
     , function(data) {
         // log pre added data
-        if (data.triggers.indexOf(newTrigger) === -1) {
+        if (data.triggers.indexOf(newTrigger) === -1 && newTrigger.length !== 0) {
             console.log(data)
             var obj = {}
             list = data.triggers
