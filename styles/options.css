@@ -74,11 +74,12 @@ ul.bordered {
 		}
 
 #trigger-options {
-	margin-left: 5em;
-	margin-right: 5em;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 15px;
 	overflow: hidden;
         text-align: center;
+        width: 60%;
 }
 
 
@@ -96,6 +97,9 @@ ul.bordered {
 		#trigger-list ul li {
 			padding-bottom: 15px;
 		}
+#trigger-list {
+    width:60%
+}
 
 #trigger-list-inputs {
 }
