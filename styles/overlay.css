@@ -1,8 +1,17 @@
+img {
+	visibility: hidden;
+}
+
+.inspected {
+	visibility: visible;	
+}
+
 .uninspected {
 	opacity: 0;
 }
 
 .logo {
+	visibility: visible;
 	width: 50%;
 }
 

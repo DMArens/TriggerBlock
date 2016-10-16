@@ -102,18 +102,22 @@ function clarifaiTrigger(images) {
 						blockTrigger(images[i]);
 					}
 					images[i].classList.remove("uninspected");
+					images[i].classList.add("inspected");
 				}
 			} else {
 				for (var i = 0; i < images.length; i++) {
 					images[i].classList.remove("uninspected");
+					images[i].classList.add("inspected");
 					blockTrigger(images[i]);
 				}
 			}
+			
 		},
 		function(err) {
 			console.error('error lol: ' + err);
 			for (var i = 0; i < images.length; i++) {
 				images[i].classList.remove("uninspected");
+					images[i].classList.add("inspected");
 				blockTrigger(images[i]);
 			}
 		}
