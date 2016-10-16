@@ -66,27 +66,34 @@ function clarifaiTrigger(images) {
 
 	app.models.predict(Clarifai.GENERAL_MODEL, urls).then(
 		function(response) {
+			console.log(response);
 			if (response.statusText == 'OK') {
-				outputs = response.data.outputs;
+				var outputs = response.data.outputs;
 				for (var i = 0; i < outputs.length; i++) {
 					if (outputs[i].data != null) {
-						tags = outputs[i].data.concepts.map(function(o) { return o.name });
+						var tags = outputs[i].data.concepts.map(function(o) { return o.name });
 						if (intersect(tags, triggerStore).length > 0) {
-							console.log('trigger tags: ' + intersect(tags, triggerStore));
 		                    blockTrigger(images[i]);
-						} else {
-							console.log('not a trigger');
 						}
 					} else {
+						console.log('bad image');
 						blockTrigger(images[i]);
 					}
-					image[i].classList.remove("uninspected");
+					images[i].classList.remove("uninspected");
+				}
+			} else {
+				for (var i = 0; i < images.length; i++) {
+					images[i].classList.remove("uninspected");
+					blockTrigger(images[i]);
 				}
 			}
-		},	
+		},
 		function(err) {
 			console.error('error lol: ' + err);
-			blockTriggers(images);
+			for (var i = 0; i < images.length; i++) {
+				images[i].classList.remove("uninspected");
+				blockTrigger(images[i]);
+			}
 		}
 	);	
 }
@@ -102,17 +109,18 @@ function triggerBlock() {
 	}
 
 	chrome.storage.sync.get("triggers", function(triggers) {
-		var imagesbuf = []
-		triggerStore = triggers.triggers
+		var imagesbuf = [];
+		triggerStore = triggers.triggers;
 		console.log(triggerStore)
-		   for ( var i = 0; i < images.length; i++ )
-			{
-		   	imagesbuf.push(images[i]);
-		   	if (imagesbuf.length == IMAGES_BUFSIZE) {
-		   		clarifaiTrigger(imagesbuf);
-				 imagesbuf = [];
-		   	}
-		  }
+		for (var i = 0; i < images.length; i++) {
+			if (!images[i].src.includes('data:')) {
+				imagesbuf.push(images[i]);
+				if (imagesbuf.length == IMAGES_BUFSIZE) {
+					clarifaiTrigger(imagesbuf);
+					imagesbuf = [];
+				}
+			}
+		}
 		if (imagesbuf.length != 0) {
 			clarifaiTrigger(imagesbuf);
 		}
@@ -120,3 +128,4 @@ function triggerBlock() {
 }
 
 window.addEventListener("load", triggerBlock);
+
