@@ -1,21 +1,21 @@
-manifest_version": 2,
+{
+    "manifest_version": 2,
 
-  "name": "Trigger Block",
-  "description": "Block those pesky trigger images",
-  "version": "0.1.0",
+      "name": "Trigger Block",
+      "description": "Block those pesky trigger images",
+      "version": "0.1.0",
 
-  "browser_action": {
-    "default_icon": "",
-    "default_title": "Trigger Block"
-  },
-  "options_page": "options.html",
-  "permissions": [
-        "storage",
-        "<all_urls>",
-        "tabs",
-        "contextMenus"
-    ],
-  "icons": {
-  }
+      "browser_action": {
+        "default_title": "Trigger Block"
+      },
+      "options_page": "options.html",
+      "permissions": [
+            "storage",
+            "<all_urls>",
+            "tabs",
+            "contextMenus"
+        ],
+      "icons": {
+      }
 
 }
