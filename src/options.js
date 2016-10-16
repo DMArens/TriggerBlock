@@ -13,28 +13,45 @@ function addTrigger() {
         obj["triggers"] = list 
         chrome.storage.sync.set(obj, function(){
             // here for testing
-            var list = $("#current-triggers")
-            list.append("<li>" + newTrigger + "</li>")
+            appendList(newTrigger) 
             chrome.storage.sync.get("triggers", function(data){console.log(data)})
         })
     });
 }
 
 function listTriggers() {
-    var list = $("#current-triggers")
-    for (var item in triggerStore.triggers) {
-        list.append("<li>" + triggerStore.triggers[item] + "<button class='remove'>blah</button></li>")
+    for (var item in triggerStore) {
+        appendList(triggerStore[item])
     }
 }
 
-chrome.storage.sync.get("triggers", function(data){triggerStore = data})
+function appendList(item) {
+    var list = $("#current-triggers")
+    var button = $("<button id='" + item +"-button'>blah</button>") 
+    list.append("<li>" + item + button[0].outerHTML + "</li>")
+    $("#" + item + "-button").on("click", function(e) {
+        triggerStore.splice(triggerStore.indexOf(item), 1)
+        updateTriggers(triggerStore)
+        $(e.target)[0].parentElement.remove()
+    })
+}
+
+function updateTriggers(newTriggers) {
+    chrome.storage.sync.set({triggers: newTriggers})
+}
+
  
 document.getElementById('save-trigger').addEventListener('click', addTrigger);
 
 $(document).ready(function() {
-    listTriggers()
-    $(".remove").click(function(e){
-        console.log("clicked")
-        
+    chrome.storage.sync.get("triggers", function(data){
+        if (Object.keys(data).length === 0) {
+            chrome.storage.sync.set({triggers:[]})
+            triggerStore = []
+        } else {
+            triggerStore = data.triggers
+        }
+        console.log(triggerStore)
+        listTriggers()
     })
 })
