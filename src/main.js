@@ -7,8 +7,8 @@ var app = new Clarifai.App(
 
 function getTriggers() {
 	var trigs;
-	chrome.storage.sync.get("triggers", function(triggers) {
-		trigs = triggers;
+	chrome.storage.sync.get("triggers", function(data) {
+		trigs = data.triggers;
 	});
 	return trigs;
 }
