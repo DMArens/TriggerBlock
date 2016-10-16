@@ -88,17 +88,17 @@ function triggerBlock() {
 }
 
 function popoff() {
-    chrome.storage.sync.get("triggers", function(triggers) {
-        triggerStore = triggers.triggers
-        console.log(triggerStore)
-        triggerBlock();
-    });
+	chrome.storage.sync.get("triggers", function(triggers) {
+		triggerStore = triggers.triggers
+		console.log(triggerStore)
+		triggerBlock();
+	});
 }
 
 if (document.readyState === "complete") {
-    popoff()
+	popoff()
 } else {
 	document.addEventListener('DOMContentLoaded', function () {
-            popoff()
+		popoff()
 	});
 }
