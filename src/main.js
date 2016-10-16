@@ -1,5 +1,10 @@
 'use strict'
 
+var app = new Clarifai.App(
+	'{clientId}',
+	'{clientSecret}'
+);
+
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
 		// Process the trigger to create an overlay
@@ -20,7 +25,23 @@ function blockTrigger(trigger) {
 }
 
 function clarifaiTrigger(image) {
+	var url = image.src;
+	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
+		function(response) {
+			if(response.status_code == 'OK') {
+				return intersect(response.classes, getTriggers());
+			}
+		},	
+		function(err) {
+			console.error(err);
+			return true;
+		}
+	);	
 	return true;
+}
+
+function intersect(arr1, arr2) {
+	return $(arr1).not($(arr1).not(arr2)).length > 0;
 }
 
 function triggerBlock() {
