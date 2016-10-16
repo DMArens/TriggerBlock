@@ -90,4 +90,4 @@ function popoff() {
 	});
 }
 
-popoff();
+window.addEventListener("load", popoff);
