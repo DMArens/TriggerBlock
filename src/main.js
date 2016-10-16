@@ -69,7 +69,7 @@ function blockTrigger(trigger) {
 
 				// Prevent following hyperlinks
 				return false;
-			}
+			});
 		}
 
 		// Create a DOM element to replace the trigger with
