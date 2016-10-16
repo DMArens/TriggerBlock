@@ -29,16 +29,17 @@ $(document).on("click", "a", function() {
  */
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
+		// Hide the trigger right off the bat
+		trigger.classList.remove("inspected");
+
 		// Generate a trigger warning
 		var hoverText = document.createElement("p");
 		hoverText.textContent = "View Trigger";
 		hoverText.classList.add("trigger-warning");
-
 		var hoverImg = document.createElement("img");
 		hoverImg.src = chrome.extension.getURL("/img/TriggerBlock.png");
 		hoverImg.classList.add("logo");
 
-		trigger.setAttribute("style", "-webkit-filter: blur(30px)");
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
 		var width = "" + trigger.width + "px";
@@ -51,17 +52,25 @@ function blockTrigger(trigger) {
 		overlay.appendChild(hoverText);
 		overlay.appendChild(hoverImg);
 
-		$(document).on("click", ".trigger-overlay", function() {
-			// get the trigger container
-			var ancestor = this.parentNode;
-			for(var i = 0; i < ancestor.childNodes.length; i++) {
-				if(ancestor.childNodes[i].tagName == "IMG") {
-					ancestor.childNodes[i].setAttribute("style", "-webkit-filter:blur(0px)");
+		var overlays = document.getElementsByClassName("trigger-overlay");
+		for (var i = 0; i < overlays.length; i++) {
+			overlays[i].addEventListener("click", function() {
+				// Unhide the image when clicked
+				var evilSibling = this.parentNode.firstChild;
+				if (evilSibling.nodeName == "IMG" &&
+						evilSibling.parentNode
+						.classList.contains("trigger-holder")) {
+					evilSibling.classList.add("inspected");
 				}
+
+				// Replace the container with the original image
+				var ancestor = this.parentNode;
+				ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
+
+				// Prevent following hyperlinks
+				return false;
 			}
-			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
-			return false;
-		});
+		}
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");
@@ -132,12 +141,10 @@ function clarifaiTrigger(images) {
 						console.log('bad image');
 						blockTrigger(images[i]);
 					}
-					images[i].classList.remove("uninspected");
 					images[i].classList.add("inspected");
 				}
 			} else {
 				//for (var i = 0; i < images.length; i++) {
-				//	images[i].classList.remove("uninspected");
 				//	images[i].classList.add("inspected");
 				//	blockTrigger(images[i]);
 				//}
@@ -146,9 +153,9 @@ function clarifaiTrigger(images) {
 		},
 		function(err) {
 			console.error('error lol: ' + err);
+			// TODO: PLEASE refactor this...
 			for (var i = 0; i < images.length; i++) {
-				images[i].classList.remove("uninspected");
-					images[i].classList.add("inspected");
+				images[i].classList.add("inspected");
 				blockTrigger(images[i]);
 			}
 		}
@@ -201,4 +208,5 @@ chrome.extension.sendMessage({text:"EnabledCheck"},function(response){
 		for (var i = 0; i < images.length; i++) {
 			images[i].setAttribute("style", "-webkit-filter:blur(0px)");
 		}
-	}});
+	}
+});
