@@ -1,8 +1,9 @@
 'use strict'
 
 function getTriggers() {
+	var trigs;
 	chrome.storage.sync.get("triggers", function(triggers) {
-		var trigs = triggers;
+		trigs = triggers;
 	});
 	return trigs;
 }
