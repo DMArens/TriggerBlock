@@ -95,10 +95,4 @@ function popoff() {
 	});
 }
 
-if (document.readyState === "complete") {
-	popoff()
-} else {
-	document.addEventListener('DOMContentLoaded', function () {
-		popoff()
-	});
-}
+popoff();
