@@ -42,10 +42,10 @@ function blockTrigger(trigger) {
 		var replacement = document.createElement("div");
 		replacement.classList.add("trigger-holder");
 
-		// Remove the trigger and replace it
+		// Wrap the trigger with a trigger warning
+		trigger.parentNode.replaceChild(replacement, trigger);
 		replacement.appendChild(trigger);
 		replacement.appendChild(overlay);
-		trigger.parentNode.replaceChild(replacement, trigger);
 
 		return true;
 	}
@@ -57,16 +57,20 @@ function clarifaiTrigger(image) {
 	var url = image.src;
 	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
 		function(response) {
+			console.log('doing clarifai: ' + response.request.response);
 			if(response.status_code == 'OK') {
-				return intersect(response.classes, triggerStore).length > 0;
+				if (intersect(response.classes, triggerStore).length > 0) {
+					blockTrigger(image);
+				} else {
+					console.log('no trigger');
+				}
 			}
 		},	
 		function(err) {
-			console.error(err);
-			return true;
+			console.error('error lol: ' + err);
+			blockTrigger(image);
 		}
 	);	
-	return true;
 }
 
 function intersect(arr1, arr2) {
@@ -76,9 +80,7 @@ function intersect(arr1, arr2) {
 function triggerBlock() {
 	var images = document.getElementsByTagName('img');
 	for (var i = 0; i < images.length; i++) {
-		if (clarifaiTrigger(images[i])) {
-			blockTrigger(images[i])
-		}
+		clarifaiTrigger(images[i]);
 	}
 }
 
