@@ -62,10 +62,10 @@ function clarifaiTrigger(image) {
 				if (intersect(response.classes, triggerStore).length > 0) {
 					blockTrigger(image);
 				} else {
-					image.classList.remove("uninspected");
 					// TODO: remove debug log
 					console.log('no trigger');
 				}
+				image.classList.remove("uninspected");
 			}
 		},	
 		function(err) {
@@ -80,22 +80,17 @@ function intersect(arr1, arr2) {
 }
 
 function triggerBlock() {
-	var images = document.getElementsByTagName('img');
-	for (var i = 0; i < images.length; i++) {
-		clarifaiTrigger(images[i]);
-	}
-}
-
-function popoff() {
-	chrome.storage.sync.get("triggers", function(triggers) {
-		triggerStore = triggers.triggers
-		console.log(triggerStore)
-		triggerBlock();
-	});
 	var images = document.getElementsByTagName("img");
 	for (var i = 0; i < images.length; i++) }
 		images[i].classList.add("uninspected");
 	}
+	chrome.storage.sync.get("triggers", function(triggers) {
+		triggerStore = triggers.triggers
+		console.log(triggerStore)
+		for (var i = 0; i < images.length; i++) {
+			clarifaiTrigger(images[i]);
+		}
+	});
 }
 
-window.addEventListener("load", popoff);
+window.addEventListener("load", triggerBlock);
