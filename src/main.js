@@ -34,7 +34,7 @@ function blockTrigger(trigger) {
 		hoverText.classList.add("trigger-warning");
 
 		var hoverImg = document.createElement("img");
-		hoverImg.src = "chrome-extension://iodgnbahcdlhngilglhlkkiokmecbnhh/img/TriggerBlock.png";
+		hoverImg.src = chrome.extension.getURL("/img/TriggerBlock.png");
 		hoverImg.classList.add("logo");
 
 		trigger.setAttribute("style","-webkit-filter:blur(30px)");
