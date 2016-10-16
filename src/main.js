@@ -98,7 +98,7 @@ function clarifaiTrigger(images) {
 					if (outputs[i].data != null) {
 						var tags = outputs[i].data.concepts.map(function(o) { return o.name });
 						if (intersect(tags, triggerStore).length > 0) {
-		                    blockTrigger(images[i]);
+							blockTrigger(images[i]);
 						}
 					} else {
 						console.log('bad image');
