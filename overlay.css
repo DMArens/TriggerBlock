@@ -1,0 +1,9 @@
+.trigger-holder {
+	position: relative;
+}
+
+.trigger-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+}

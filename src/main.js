@@ -1,7 +1,22 @@
 'use strict'
 
-function blockTrigger(image) {
-	console.log('blocked: ' + image);
+function blockTrigger(trigger) {
+	if(trigger.nodeName == "IMG") {
+		// Process the trigger to create an overlay
+		var overlay = document.createElement("div");
+		var width = "" + trigger.width + "px";
+		var height = "" + trigger.height + "px";
+		overlay.style.width = width;
+		overlay.style.height = height;
+		overlay.style.backgroundColor = "#FF0000"; // TODO: Use config instead
+		overlay.classList.add("trigger-overlay");
+
+		// Create a DOM element to replace the trigger with
+		var replacement = document.createElement("div");
+		replacement.classList.add("trigger-holder");
+
+		// TODO: Remove the trigger and replace it
+	}
 }
 
 function clarifaiTrigger(image) {
