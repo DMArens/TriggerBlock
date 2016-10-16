@@ -15,6 +15,7 @@ function addTrigger() {
 
             chrome.storage.sync.set(obj, function(){
                 appendList(newTrigger) 
+                document.getElementById("trigger-input").value = "" 
             })
         }
     });
