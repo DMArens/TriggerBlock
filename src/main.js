@@ -130,10 +130,6 @@ function intersect(arr1, arr2) {
 
 function triggerBlock() {
 	var images = document.getElementsByTagName("img");
-	for (var i = 0; i < images.length; i++) {
-		images[i].classList.add("uninspected");
-	}
-
 	chrome.storage.sync.get("triggers", function(triggers) {
 		var imagesbuf = [];
 		triggerStore = triggers.triggers;
@@ -153,5 +149,12 @@ function triggerBlock() {
 	});
 }
 
-window.addEventListener("load", triggerBlock);
-
+chrome.extension.sendMessage({text:"EnabledCheck"},function(response){
+	if (response.isEnabled == true) {
+		window.addEventListener("load", triggerBlock);
+	} else {
+		var images = document.getElementsByTagName('img');
+		for (var i = 0; i < images.length; i++) {
+			images[i].setAttribute("style", "-webkit-filter:blur(0px)");
+		}
+	}});
