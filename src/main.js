@@ -5,14 +5,7 @@ var app = new Clarifai.App(
 	'{clientSecret}'
 );
 
-function getTriggers() {
-	var trigs;
-	chrome.storage.sync.get("triggers", function(triggers) {
-		trigs = triggers;
-	});
-	return trigs;
-}
-
+var triggerStore = null
 
 /**
  * Blocks a given element on the DOM.
@@ -32,7 +25,7 @@ function blockTrigger(trigger) {
 			// get the trigger container
 			var ancestor = this.parentNode.parentNode;
 			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
-		}
+		})
 
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
@@ -70,7 +63,7 @@ function clarifaiTrigger(image) {
 	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
 		function(response) {
 			if(response.status_code == 'OK') {
-				return intersect(response.classes, getTriggers());
+				return intersect(response.classes, triggerStore);
 			}
 		},	
 		function(err) {
@@ -94,10 +87,18 @@ function triggerBlock() {
 	}
 }
 
+function popoff() {
+    chrome.storage.sync.get("triggers", function(triggers) {
+        triggerStore = triggers.triggers
+        console.log(triggerStore)
+        triggerBlock();
+    });
+}
+
 if (document.readyState === "complete") {
-	triggerBlock();
+    popoff()
 } else {
 	document.addEventListener('DOMContentLoaded', function () {
-		triggerBlock();
+            popoff()
 	});
 }

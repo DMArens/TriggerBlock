@@ -1,5 +1,4 @@
 var triggerStore = null
-
 // add a trigger word to the list
 function addTrigger() {
     var newTrigger = document.getElementById("trigger-input").value 
