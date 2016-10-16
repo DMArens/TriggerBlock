@@ -13,6 +13,15 @@ function getTriggers() {
 	return trigs;
 }
 
+
+/**
+ * Blocks a given element on the DOM.
+ *
+ * @trigger - the DOM element to block
+ *
+ * @return - true if successfully blocked. False is generally only returned if
+ *		blocking is not supported for the given element.
+ */
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
 		// Generate a trigger warning
@@ -44,7 +53,11 @@ function blockTrigger(trigger) {
 		replacement.appendChild(trigger);
 		replacement.appendChild(overlay);
 		trigger.parentNode.replaceChild(replacement, trigger);
+
+		return true;
 	}
+
+	return false;
 }
 
 function clarifaiTrigger(image) {
