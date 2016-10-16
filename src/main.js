@@ -100,7 +100,7 @@ function triggerBlock() {
 	}
 
 	chrome.storage.sync.get("triggers", function(triggers) {
-		var imagesbuff = []
+		var imagesbuf = []
 		triggerStore = triggers.triggers
 		console.log(triggerStore)
 		   for ( var i = 0; i < images.length; i++ )
