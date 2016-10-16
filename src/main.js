@@ -1,5 +1,7 @@
 'use strict'
 
+var IMAGES_BUFSIZE = 128;;
+
 var app = new Clarifai.App(
 	'bi23kkb3SfD800k620sudJwg4mVzypk1kXyYHI_J',
 	'euhZE4Q-UFRfVozp-V3JxkGJXD0CtsIp6MCMuFRj'
@@ -95,12 +97,12 @@ function intersect(arr1, arr2) {
 
 function triggerBlock() {
 	var images = document.getElementsByTagName("img");
-	for (var i = 0; i < images.length; i++) }
+	for (var i = 0; i < images.length; i++) {
 		images[i].classList.add("uninspected");
 	}
 
 	chrome.storage.sync.get("triggers", function(triggers) {
-		var imagesbuff = []
+		var imagesbuf = []
 		triggerStore = triggers.triggers
 		console.log(triggerStore)
 		   for ( var i = 0; i < images.length; i++ )
