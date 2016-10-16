@@ -12,10 +12,12 @@ function addTrigger() {
 			list = data.triggers
 			list.push(newTrigger)
 			obj["triggers"] = list 
-
+            
 			chrome.storage.sync.set(obj, function(){
 				appendList(newTrigger) 
 				document.getElementById("trigger-input").value = "" 
+                triggerStore = list
+                updateCount()
 			})
 		}
 	});
@@ -25,6 +27,11 @@ function listTriggers() {
 	for (var item in triggerStore) {
 		appendList(triggerStore[item])
 	}
+    updateCount()
+}
+
+function updateCount() {
+    $("#trigger-count").text("No. of Triggers: " + triggerStore.length) 
 }
 
 function appendList(item) {
@@ -36,11 +43,13 @@ function appendList(item) {
 		$(e.target)[0].parentElement.remove()
 	})
 	var combined = $("<li>" + item + "</li>").append($(button)) 
-        combined.appendTo(list)
+    combined.appendTo(list)
 }
 
 function updateTriggers(newTriggers) {
 	chrome.storage.sync.set({triggers: newTriggers})
+    triggerStore = newTriggers
+    updateCount()
 }
 
  

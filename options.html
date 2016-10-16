@@ -4,7 +4,7 @@
 	<head>
 		<title>TriggerBlock Options</title>
 		<link rel="stylesheet" type="text/css" href="/styles/options.css">
-		<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="/src/lib/jquery-3.1.1.min.js"></script>
 	</head>
 	<body>
 		<div id="container">
@@ -19,7 +19,13 @@
 					<h1><a href="#trigger-options">Triggers</a></h1>
 					<p>Add or remove triggers here.</p>
 					<ul>
-						<li>No. of Triggers: ?</li>
+						<li id="trigger-count">No. of Triggers: ?</li>
+                                                <li>
+                                                    <div id="trigger-list-inputs">
+                                                            Add Trigger Word: <input id="trigger-input" type="text">
+                                                            <input id="save-trigger" type="submit" value="Add Trigger">
+                                                    </div>
+                                                </li>
 					</ul>
 				</div>
 			</div>
@@ -27,10 +33,6 @@
 			<!-- Triggers Section -->
 			<h1 class="section-heading">Trigger List</h1>
 			<div id="trigger-options" class="bordered">
-				<div id="trigger-list-inputs">
-					Add Trigger Word: <input id="trigger-input" type="text">
-					<input id="save-trigger" type="submit" value="Add Trigger">
-				</div>
 				<div id="trigger-list">
 					<h2>Current Trigger List</h2>
 					<ul id="current-triggers" class="bordered">

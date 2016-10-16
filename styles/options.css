@@ -43,11 +43,10 @@ ul.bordered {
 }
 
 .navigator-element {
-	width: 12em;
 	height: 12em;
 	text-align: left;
 	margin: 5px;
-	padding-left: 8px;
+	padding: 8px;
 	display: inline-block;
 }
 
@@ -79,11 +78,9 @@ ul.bordered {
 	margin-right: 5em;
 	padding: 15px;
 	overflow: hidden;
+        text-align: center;
 }
 
-#trigger-list {
-	float: right;
-}
 
 	#trigger-list h2 {
 		margin-top: 0;
