@@ -113,12 +113,10 @@ function clarifaiTrigger(images) {
 						console.log('bad image');
 						blockTrigger(images[i]);
 					}
-					images[i].classList.remove("uninspected");
 					images[i].classList.add("inspected");
 				}
 			} else {
 				for (var i = 0; i < images.length; i++) {
-					images[i].classList.remove("uninspected");
 					images[i].classList.add("inspected");
 					blockTrigger(images[i]);
 				}
@@ -127,9 +125,9 @@ function clarifaiTrigger(images) {
 		},
 		function(err) {
 			console.error('error lol: ' + err);
+			// TODO: PLEASE refactor this...
 			for (var i = 0; i < images.length; i++) {
-				images[i].classList.remove("uninspected");
-					images[i].classList.add("inspected");
+				images[i].classList.add("inspected");
 				blockTrigger(images[i]);
 			}
 		}
