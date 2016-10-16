@@ -1,8 +1,8 @@
 'use strict'
 
 var app = new Clarifai.App(
-	'{clientId}',
-	'{clientSecret}'
+	'bi23kkb3SfD800k620sudJwg4mVzypk1kXyYHI_J',
+	'euhZE4Q-UFRfVozp-V3JxkGJXD0CtsIp6MCMuFRj'
 );
 
 var triggerStore = null
