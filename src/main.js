@@ -53,25 +53,38 @@ function blockTrigger(trigger) {
 	return false;
 }
 
-function clarifaiTrigger(image) {
-	var url = image.src;
-	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
+function blockTriggers(images) {
+	for (var i = 0; i < images.length; i++) {
+		blockTrigger(image);
+	}
+}
+
+function clarifaiTrigger(images) {
+	var urls = images.map(function(o) { return o.src });
+
+	app.models.predict(Clarifai.GENERAL_MODEL, urls).then(
 		function(response) {
 			if (response.statusText == 'OK') {
-				tags = response.data.outputs[0].data.concepts.map(function(o) { return o.name });
-				if (intersect(tags, triggerStore).length > 0) {
-					console.log('trigger tags: ' + intersect(tags, triggerStore));
-					blockTrigger(image);
-				} else {
-					// TODO: remove debug log
-					console.log('not a trigger');
+				outputs = response.data.outputs;
+				for (var i = 0; i < outputs.length; i++) {
+					if (outputs[i].data != null) {
+						tags = outputs[i].data.concepts.map(function(o) { return o.name });
+						if (intersect(tags, triggerStore).length > 0) {
+							console.log('trigger tags: ' + intersect(tags, triggerStore));
+		                    blockTrigger(images[i]);
+						} else {
+							console.log('not a trigger');
+						}
+					} else {
+						blockTrigger(images[i]);
+					}
+					image[i].classList.remove("uninspected");
 				}
-				image.classList.remove("uninspected");
 			}
 		},	
 		function(err) {
 			console.error('error lol: ' + err);
-			blockTrigger(image);
+			blockTriggers(images);
 		}
 	);	
 }
