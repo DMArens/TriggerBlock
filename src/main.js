@@ -32,7 +32,7 @@ function blockTrigger(trigger) {
 			// get the trigger container
 			var ancestor = this.parentNode.parentNode;
 			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
-		}
+		});
 
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
