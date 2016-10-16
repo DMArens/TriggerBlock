@@ -9,7 +9,6 @@ img {
 .logo {
 	-webkit-filter: blur(0px);
 	visibility: visible;
-	width: 50%;
 }
 
 .trigger-warning {

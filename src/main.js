@@ -33,17 +33,23 @@ function blockTrigger(trigger) {
 		trigger.setAttribute("style", "-webkit-filter: blur(30px)");
 
 		// Generate a trigger warning
+		var width = "" + trigger.width + "px";
+		var height = "" + trigger.height + "px";
 		var hoverText = document.createElement("p");
 		hoverText.textContent = "View Trigger";
 		hoverText.classList.add("trigger-warning");
 		var hoverImg = document.createElement("img");
 		hoverImg.src = chrome.extension.getURL("/img/TriggerBlock.png");
+		// Dynamically size the logo
+		if (trigger.width > trigger.height + 6) {
+			hoverImg.style.height = height;
+		} else {
+			hoverImg.style.height = height;
+		}
 		hoverImg.classList.add("logo");
 
 		// Process the trigger to create an overlay
 		var overlay = document.createElement("div");
-		var width = "" + trigger.width + "px";
-		var height = "" + trigger.height + "px";
 		overlay.style.width = width;
 		overlay.style.height = height;
 		overlay.style.backgroundColor = "#D3D3D3"; // TODO: use config variable
