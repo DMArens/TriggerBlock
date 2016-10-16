@@ -1,21 +1,21 @@
 var triggerStore = null
 // add a trigger word to the list
 function addTrigger() {
-	var newTrigger = document.getElementById("trigger-input").value
+	var newTrigger = document.getElementById("trigger-input").value.replace(/^\s+|\s+$/g, '') 
 	chrome.storage.sync.get(
 		"triggers"
 	, function(data) {
 		// log pre added data
-		if (data.triggers.indexOf(newTrigger) === -1) {
+		if (data.triggers.indexOf(newTrigger) === -1 && newTrigger.length !== 0) {
 			console.log(data)
 			var obj = {}
 			list = data.triggers
 			list.push(newTrigger)
-			obj["triggers"] = list
+			obj["triggers"] = list 
 
 			chrome.storage.sync.set(obj, function(){
-				appendList(newTrigger)
-				document.getElementById("trigger-input").value = ""
+				appendList(newTrigger) 
+				document.getElementById("trigger-input").value = "" 
 			})
 		}
 	});
@@ -29,7 +29,7 @@ function listTriggers() {
 
 function appendList(item) {
 	var list = $("#current-triggers")
-	var button = $("<button id='" + item +"-button' class='remove'>X</button>")
+	var button = $("<button id='" + item +"-button' class='remove'>X</button>") 
 	list.append("<li>" + item + button[0].outerHTML + "</li>")
 	$("#" + item + "-button").on("click", function(e) {
 		triggerStore.splice(triggerStore.indexOf(item), 1)
@@ -49,9 +49,9 @@ $(document).ready(function() {
 	$('input').keypress(function (e) {
 		if (e.which == 13) {
 			addTrigger()
-			return false;	 //<---- Add this line
-		}
-	});
+		return false;	 //<---- Add this line
+	  }
+	}); 
 
 	chrome.storage.sync.get("triggers", function(data){
 		if (Object.keys(data).length === 0) {

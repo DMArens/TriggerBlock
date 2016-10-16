@@ -85,11 +85,21 @@ function triggerBlock() {
 	for (var i = 0; i < images.length; i++) }
 		images[i].classList.add("uninspected");
 	}
+
 	chrome.storage.sync.get("triggers", function(triggers) {
+		var imagesbuff = []
 		triggerStore = triggers.triggers
 		console.log(triggerStore)
-		for (var i = 0; i < images.length; i++) {
-			clarifaiTrigger(images[i]);
+		   for ( var i = 0; i < images.length; i++ )
+			{
+		   	imagesbuf.push(images[i]);
+		   	if (imagesbuf.length == IMAGES_BUFSIZE) {
+		   		clarifaiTrigger(imagesbuf);
+				 imagesbuf = [];
+		   	}
+		  }
+		if (imagesbuf.length != 0) {
+			clarifaiTrigger(imagesbuf);
 		}
 	});
 }
