@@ -42,10 +42,10 @@ function blockTrigger(trigger) {
 		var replacement = document.createElement("div");
 		replacement.classList.add("trigger-holder");
 
-		// Remove the trigger and replace it
+		// Wrap the trigger with a trigger warning
+		trigger.parentNode.replaceChild(replacement, trigger);
 		replacement.appendChild(trigger);
 		replacement.appendChild(overlay);
-		trigger.parentNode.replaceChild(replacement, trigger);
 
 		return true;
 	}
