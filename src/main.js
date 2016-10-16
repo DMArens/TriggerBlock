@@ -1,5 +1,7 @@
 'use strict'
 
+var IMAGES_BUFSIZE = 128;;
+
 var app = new Clarifai.App(
 	'bi23kkb3SfD800k620sudJwg4mVzypk1kXyYHI_J',
 	'euhZE4Q-UFRfVozp-V3JxkGJXD0CtsIp6MCMuFRj'
