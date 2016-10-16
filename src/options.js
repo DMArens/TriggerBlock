@@ -1,4 +1,5 @@
 var triggerStore = null
+
 // add a trigger word to the list
 function addTrigger() {
     var newTrigger = document.getElementById("trigger-input").value 
@@ -6,16 +7,17 @@ function addTrigger() {
         "triggers"
     , function(data) {
         // log pre added data
-        console.log(data)
-        var obj = {}
-        list = data.triggers
-        list.push(newTrigger)
-        obj["triggers"] = list 
-        chrome.storage.sync.set(obj, function(){
-            // here for testing
-            appendList(newTrigger) 
-            chrome.storage.sync.get("triggers", function(data){console.log(data)})
-        })
+        if (data.triggers.indexOf(newTrigger) === -1) {
+            console.log(data)
+            var obj = {}
+            list = data.triggers
+            list.push(newTrigger)
+            obj["triggers"] = list 
+
+            chrome.storage.sync.set(obj, function(){
+                appendList(newTrigger) 
+            })
+        }
     });
 }
 
@@ -41,9 +43,10 @@ function updateTriggers(newTriggers) {
 }
 
  
-document.getElementById('save-trigger').addEventListener('click', addTrigger);
 
 $(document).ready(function() {
+    document.getElementById('save-trigger').addEventListener('click', addTrigger);
+
     chrome.storage.sync.get("triggers", function(data){
         if (Object.keys(data).length === 0) {
             chrome.storage.sync.set({triggers:[]})
