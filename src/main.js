@@ -72,7 +72,6 @@ function clarifaiTrigger(image) {
 			blockTrigger(image);
 		}
 	);	
-	}
 }
 
 function intersect(arr1, arr2) {
