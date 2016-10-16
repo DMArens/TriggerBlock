@@ -30,7 +30,7 @@ $(document).on("click", "a", function() {
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
 		// Hide the trigger right off the bat
-		trigger.classList.remove("inspected");
+		trigger.setAttribute("style", "-webkit-filter: blur(30px)");
 
 		// Generate a trigger warning
 		var hoverText = document.createElement("p");
@@ -52,25 +52,17 @@ function blockTrigger(trigger) {
 		overlay.appendChild(hoverText);
 		overlay.appendChild(hoverImg);
 
-		var overlays = document.getElementsByClassName("trigger-overlay");
-		for (var i = 0; i < overlays.length; i++) {
-			overlays[i].addEventListener("click", function() {
-				// Unhide the image when clicked
-				var evilSibling = this.parentNode.firstChild;
-				if (evilSibling.nodeName == "IMG" &&
-						evilSibling.parentNode
-						.classList.contains("trigger-holder")) {
-					evilSibling.classList.add("inspected");
+		$(document).on("click", ".trigger-overlay", function() {
+			// get the trigger container
+			var ancestor = this.parentNode;
+			for(var i = 0; i < ancestor.childNodes.length; i++) {
+				if(ancestor.childNodes[i].tagName == "IMG") {
+					ancestor.childNodes[i].setAttribute("style", "-webkit-filter:blur(0px)");
 				}
-
-				// Replace the container with the original image
-				var ancestor = this.parentNode;
-				ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
-
-				// Prevent following hyperlinks
-				return false;
-			});
-		}
+			}
+			ancestor.parentNode.replaceChild(ancestor.firstChild, ancestor);
+			return false;
+		});
 
 		// Create a DOM element to replace the trigger with
 		var replacement = document.createElement("div");
