@@ -58,7 +58,7 @@ function clarifaiTrigger(image) {
 	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
 		function(response) {
 			if(response.status_code == 'OK') {
-				return intersect(response.classes, triggerStore);
+				return intersect(response.classes, triggerStore).length > 0;
 			}
 		},	
 		function(err) {
@@ -70,7 +70,7 @@ function clarifaiTrigger(image) {
 }
 
 function intersect(arr1, arr2) {
-	return $(arr1).not($(arr1).not(arr2)).length > 0;
+	return $(arr1).not($(arr1).not(arr2));
 }
 
 function triggerBlock() {
