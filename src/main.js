@@ -1,5 +1,12 @@
 'use strict'
 
+function getTriggers() {
+	chrome.storage.sync.get("triggers", function(triggers) {
+		var trigs = triggers;
+	});
+	return trigs;
+}
+
 function blockTrigger(trigger) {
 	if(trigger.nodeName == "IMG") {
 		// Process the trigger to create an overlay
